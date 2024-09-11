@@ -1,0 +1,8 @@
+eclipse.preferences.version=1
+encoding//APP/blerock.c=UTF-8
+encoding//APP/hidkbd.c=UTF-8
+encoding//APP/hidkbd_main.c=UTF-8
+encoding//APP/include/blerock.h=UTF-8
+encoding//Profile/battservice.c=UTF-8
+encoding//Profile/hiddev.c=UTF-8
+encoding//Profile/hidkbdservice.c=UTF-8

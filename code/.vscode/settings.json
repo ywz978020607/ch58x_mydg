@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "sys_def.h": "c",
+        "config.h": "c",
+        "hiddev.h": "c",
+        "hidkbd.h": "c",
+        "battservice.h": "c"
+    }
+}
