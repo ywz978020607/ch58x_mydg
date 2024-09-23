@@ -13,7 +13,7 @@ volatile int16_t adc_bias_rocker[] = {0, 0, 0, 0}; // rx, ry, px, py
 uint8_t adc_oppo[] = {1, 0, 0, 1}; // rx, ry, px, py
 const int16_t rank_num = 4; // 正负分成rank_num档
 const int16_t rank_val = 1400; // 单边偏离的原始采集设置范围1400
-const int16_t level_val = rank_val * 2 / (2 * 4 + 1); // 共2*rank_num+1个区间
+// const int16_t level_val = rank_val * 2 / (2 * 4 + 1); // 共2*rank_num+1个区间
 
 volatile uint8_t temp_val_1 = 0;
 volatile uint8_t temp_val_2 = 0;
@@ -62,7 +62,7 @@ void adcInit(){
     for(uint8_t idx = 0; idx < 4; ++idx){
         GPIOA_ModeCfg(adc_pin[idx], GPIO_ModeIN_Floating);
         ADC_ExtSingleChSampInit(SampleFreq_3_2, ADC_PGA_1_2);
-        adc_bias_rocker[idx] = _read_ADC(adc_chs[idx], 5) - level_val/2; // 中间值 - 半挡位区间
+        adc_bias_rocker[idx] = _read_ADC(adc_chs[idx], 5); // - level_val/2; // 中间值 - 半挡位区间
     }
 
     GPIOA_ModeCfg(key_pin[s_key_1], S_KEY_PULL?GPIO_ModeIN_PU:GPIO_ModeIN_PD);

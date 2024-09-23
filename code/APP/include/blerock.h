@@ -67,6 +67,6 @@ void adcInit();
 
 // debug
 // extern signed short RoughCalib_Value;
-extern const int16_t level_val;
+// extern const int16_t level_val;
 
 #endif
