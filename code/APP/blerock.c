@@ -12,7 +12,7 @@ uint8_t adc_chs[] = {2, 3, 4, 5}; // rx, ry, px, py
 volatile int16_t adc_bias_rocker[] = {0, 0, 0, 0}; // rx, ry, px, py
 uint8_t adc_oppo[] = {1, 0, 0, 1}; // rx, ry, px, py
 const int16_t rank_num = 4; // 正负分成rank_num档
-const int16_t rank_val = 1500; // 单边偏离的原始采集设置范围1400
+const int16_t rank_val = 1400; // 单边偏离的原始采集设置范围1400
 const int16_t level_val = rank_val * 2 / (2 * 4 + 1); // 共2*rank_num+1个区间
 
 volatile uint8_t temp_val_1 = 0;
@@ -47,8 +47,14 @@ int16_t _read_ADC(uint8_t ch, uint8_t avg_num){
 }
 
 uint8_t calc_aout(uint8_t ch_idx){
-    uint8_t res = (adc_oppo[ch_idx])?(-((_read_ADC(adc_chs[ch_idx], 1) - adc_bias_rocker[ch_idx]) / (float)rank_val)*128 + 128):(((_read_ADC(adc_chs[ch_idx], 1) - adc_bias_rocker[ch_idx]) / (float)rank_val)*128 + 128);
-    return res;
+    int16_t res = (adc_oppo[ch_idx])?(-((_read_ADC(adc_chs[ch_idx], 1) - adc_bias_rocker[ch_idx]) / (float)rank_val)*128 + 128):(((_read_ADC(adc_chs[ch_idx], 1) - adc_bias_rocker[ch_idx]) / (float)rank_val)*128 + 128);
+    // 限制结果在 0 到 255 之间
+    if (res < 0) {
+        res = 0;
+    } else if (res > 255) {
+        res = 255;
+    }
+    return (uint8_t)res;
 };
 
 
